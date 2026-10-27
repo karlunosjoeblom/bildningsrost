@@ -1,5 +1,5 @@
-// Offentligt publicerade arbetsadresser. Roller baseras på Byggnads publicerade kontaktuppgifter.
-// Listan är grupperad med särskild visningsordning för vissa mottagare, inte en officiell rangordning.
+// Offentligt publicerade arbetsadresser. Roller hämtade från Byggnads kontaktsidor.
+// Förbundsledning och centrala kontakter visas först; regionernas inkorgar sist.
 window.BILDNINGSROST_CONFIG = {recipients: [
   {
     "name": "Centralt – Görgen Zilén",
@@ -22,6 +22,16 @@ window.BILDNINGSROST_CONFIG = {recipients: [
     "role": "Vice förbundsordförande"
   },
   {
+    "name": "Centralt – Roger Johansson",
+    "email": "roger.johansson@byggnads.se",
+    "role": "Tillförordnad chef · ledningsstaben"
+  },
+  {
+    "name": "Centralt – Malin Hanson",
+    "email": "malin.hanson@byggnads.se",
+    "role": "Enhetschef · kommunikationsenheten"
+  },
+  {
     "name": "Förbundsstyrelse – Jim Sundelin",
     "email": "jim.sundelin@byggnads.se",
     "role": "Ledamot · MellanNorrland"
@@ -38,37 +48,68 @@ window.BILDNINGSROST_CONFIG = {recipients: [
   },
   {
     "name": "Region GävleDala – ordförande Lotta Jepsen Sjölander",
-    "email": "lotta.jepsensjolander@byggnads.se"
+    "email": "lotta.jepsensjolander@byggnads.se",
+    "role": "Regionordförande · GävleDala"
   },
   {
     "name": "Region Norr – ordförande Claes Danell",
-    "email": "claes.danell@byggnads.se"
+    "email": "claes.danell@byggnads.se",
+    "role": "Regionordförande · Norr"
   },
   {
     "name": "Region Småland-Blekinge – Morgan Nyberg",
-    "email": "morgan.nyberg@byggnads.se"
+    "email": "morgan.nyberg@byggnads.se",
+    "role": "Regionordförande · Småland-Blekinge"
   },
   {
     "name": "Region Stockholm-Gotland – ordförande Johnny Rindebrant",
-    "email": "johnny.rindebrant@byggnads.se"
+    "email": "johnny.rindebrant@byggnads.se",
+    "role": "Regionordförande · Stockholm-Gotland"
   },
   {
     "name": "Region Väst – ordförande Patrik Jerksten",
-    "email": "patrik.jerksten@byggnads.se"
+    "email": "patrik.jerksten@byggnads.se",
+    "role": "Regionordförande · Väst"
   },
   {
     "name": "Region Örebro-Värmland – ordförande Ann-Katrin Hedgren",
-    "email": "ann-katrin.hedgren@byggnads.se"
+    "email": "ann-katrin.hedgren@byggnads.se",
+    "role": "Regionordförande · Örebro-Värmland"
   },
   {
-    "name": "Centralt – Roger Johansson",
-    "email": "roger.johansson@byggnads.se",
-    "role": "Tillförordnad chef · ledningsstaben"
+    "name": "Region Väst – Simon Hagel",
+    "email": "simon.hagel@byggnads.se",
+    "role": "Enhetssamordnare · Väst"
   },
   {
-    "name": "Centralt – Malin Hanson",
-    "email": "malin.hanson@byggnads.se",
-    "role": "Enhetschef · kommunikationsenheten"
+    "name": "Region Väst – Linda Djärv",
+    "email": "linda-djarv@byggnads.se",
+    "role": "Regionsekreterare · Väst"
+  },
+  {
+    "name": "Studier Mälardalen – Tobias Lundblad",
+    "email": "tobias.lundblad@byggnads.se",
+    "role": "Enhetschef och studieansvarig · Mälardalen"
+  },
+  {
+    "name": "Studier GävleDala – Henrik Jonsson",
+    "email": "henrik.jonsson@byggnads.se",
+    "role": "Studieansvarig · GävleDala"
+  },
+  {
+    "name": "Studier Norr – Alexandra Renberg",
+    "email": "alexandra.renberg@byggnads.se",
+    "role": "Ombudsman och studieansvarig · Norr"
+  },
+  {
+    "name": "Studier Örebro-Värmland – Tomas Pettersson",
+    "email": "tomas.pettersson@byggnads.se",
+    "role": "Ombudsman och studieansvarig · Örebro-Värmland"
+  },
+  {
+    "name": "Studier Väst – Jack Rolka",
+    "email": "jack.rolka@byggnads.se",
+    "role": "Ombudsman, utbildning · Väst"
   },
   {
     "name": "Region GävleDala – gemensam inkorg",
@@ -109,33 +150,5 @@ window.BILDNINGSROST_CONFIG = {recipients: [
   {
     "name": "Region Öst – gemensam inkorg",
     "email": "ost@byggnads.se"
-  },
-  {
-    "name": "Studier Mälardalen – Tobias Lundblad",
-    "email": "tobias.lundblad@byggnads.se"
-  },
-  {
-    "name": "Studier GävleDala – Henrik Jonsson",
-    "email": "henrik.jonsson@byggnads.se"
-  },
-  {
-    "name": "Studier Norr – Alexandra Renberg",
-    "email": "alexandra.renberg@byggnads.se"
-  },
-  {
-    "name": "Studier Örebro-Värmland – Tomas Pettersson",
-    "email": "tomas.pettersson@byggnads.se"
-  },
-  {
-    "name": "Studier Väst – Jack Rolka",
-    "email": "jack.rolka@byggnads.se"
-  },
-  {
-    "name": "Region Väst – Simon Hagel",
-    "email": "simon.hagel@byggnads.se"
-  },
-  {
-    "name": "Region Väst – Linda Djärv",
-    "email": "linda-djarv@byggnads.se"
   }
 ]};
