@@ -74,8 +74,6 @@ window.BILDNINGSROST_CONFIG = {recipients: [
     "email": "claes.danell@byggnads.se"
   },
   {
-    "name": "Region Mälardalen – Wilhelm Bertilsson",
-    "email": "wilhelm.bertilsson@byggnads.se"
   },
   {
     "name": "Region Småland-Blekinge – Morgan Nyberg",
