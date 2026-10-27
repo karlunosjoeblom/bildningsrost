@@ -53,7 +53,77 @@ $("select-all").addEventListener("click",()=>setAllRecipients(true));
 $("deselect-all").addEventListener("click",()=>setAllRecipients(false));
 list.addEventListener("change",()=>{$("approved").checked=false;updateRecipientStatus()});
 updateRecipientStatus();
-let last=-1;function generate(){const topics=[...document.querySelectorAll("#topics input:checked")].map(x=>x.value);if(!topics.length){$("status").textContent="Välj minst ett ämne.";return}const formality=$("formality").value;const introPool=formality==="normal"?intro[$("tone").value]:formalIntro[formality][$("tone").value];let opening=pick(introPool);if(opening===last&&introPool.length>1)opening=pick(introPool.filter(x=>x!==last));last=opening;let paragraphs=[opening];const count=$("length").value==="kort"?1:$("length").value==="lang"?Math.min(topics.length,4):Math.min(topics.length,3);const shuffled=[...topics].sort(()=>Math.random()-.5);for(const t of shuffled.slice(0,count))paragraphs.push(pick(formality==="normal"?points[t]:styledPoints[formality][t]));const n=$("length").value==="kort"?1:$("length").value==="lang"?3:2;const selectedQuestions=topics.includes("utbildningar")?[pick(cancelledCourseQuestions),...[...questions].sort(()=>Math.random()-.5).slice(0,Math.max(0,n-1))]:[...questions].sort(()=>Math.random()-.5).slice(0,n);paragraphs.push(pick(questionLeads[formality])+selectedQuestions.join(" "));paragraphs.push(pick(signoffs[formality]));$("message").value=paragraphs.join("\n\n");const choices=shuffled.flatMap(t=>subjects[t]||[]);const previous=$("subject").value;const alternatives=choices.filter(t=>t!==previous);if(alternatives.length)$("subject").value=pick(alternatives);$("approved").checked=false;$("status").textContent="Textförslaget är klart. Granska och anpassa det innan du skickar."}
+const responseRequests={
+vardaglig:["Jag vill gärna få ett tydligt svar på hur ni tänker gå vidare.","Jag tycker att vi medlemmar behöver få veta vad som ska hända nu.","Det vore bra om ni berättade vad ni tänker göra åt situationen."],
+normal:["Jag önskar ett skriftligt besked om hur förbundet avser att hantera dessa frågor.","Jag förväntar mig en tydlig redovisning av vilka åtgärder som planeras.","Jag vill ha en konkret återkoppling om hur medlemsinflytandet och utbildningsverksamheten ska värnas."],
+formell:["Jag begär en skriftlig redogörelse för förbundets ställningstaganden och planerade åtgärder.","Jag önskar ett skriftligt klargörande av ansvarsfördelning och fortsatt handläggning.","Jag emotser en saklig redovisning av hur förbundet avser att säkerställa medlemmarnas tillgång till facklig bildning."]
+};
+const reflectivePassages={
+vardaglig:["För mig handlar det här om att fler ska få chans att lära sig och göra sin röst hörd.","När utbildningen fungerar blir det lättare för oss medlemmar att förstå vad vi kan förändra tillsammans.","Jag vill tillhöra ett förbund där man får ställa frågor och utvecklas, också när man tycker olika."],
+normal:["Facklig utbildning fyller en viktig funktion för ett levande medlemsinflytande. Det är därför angeläget att verksamheten utvecklas med medlemmarnas delaktighet.","Jag ser den fackliga bildningen som en förutsättning för att medlemmarna ska kunna ta ansvar och delta i förbundets demokratiska arbete.","Förbundet vinner i längden på att utbildning och öppen diskussion uppmuntras, även när frågor och synpunkter är kritiska."],
+formell:["Den fackliga bildningen utgör en central del av förbundets demokratiska infrastruktur och förutsätter långsiktighet och insyn.","Ett hållbart medlemsinflytande förutsätter att kunskap förmedlas brett och att medlemmar ges faktiska möjligheter till självständig diskussion.","Förbundets arbete med utbildning bör präglas av tydliga mandat, tillgänglighet och respekt för medlemmarnas rätt att påverka verksamhetens utveckling."]
+};
+const concernPassages={
+vardaglig:["Jag tycker inte att det räcker med att låta frågorna hänga i luften. Vi medlemmar behöver svar.","Det är svårt att känna förtroende när man inte får veta hur sådana här frågor hanteras."],
+normal:["Brist på tydliga besked riskerar att skapa osäkerhet om utbildningsverksamhetens framtid.","Det är viktigt att ansvariga redovisar sina överväganden så att medlemmarna kan följa hur frågorna hanteras."],
+formell:["Avsaknaden av tydliga besked försvårar medlemmarnas möjlighet att bedöma hur utbildningsverksamheten leds och utvecklas.","Mot denna bakgrund bör förbundet klargöra beslutsvägar, ansvar och hur eventuella förändringar kommuniceras till medlemmarna."]
+};
+const shortClosings={
+vardaglig:["Jag hoppas att ni återkommer med ett svar.","Jag ser fram emot att höra hur ni tänker."],
+normal:["Jag ser fram emot er återkoppling.","Jag hoppas på en öppen och konstruktiv dialog."],
+formell:["Jag ser fram emot ert skriftliga svar.","Jag emotser en tydlig återkoppling."]
+};
+const signatures={vardaglig:["Vänliga hälsningar,","Hälsningar,"],normal:["Med vänlig hälsning,","Vänliga hälsningar,","Kamratliga hälsningar,"],formell:["Med vänlig hälsning,"]};
+let lastOpening="",lastStructure=-1;
+function generate(){
+const topics=[...document.querySelectorAll("#topics input:checked")].map(x=>x.value);
+if(!topics.length){$("status").textContent="Välj minst ett ämne.";return}
+const tone=$("tone").value,formality=$("formality").value,length=$("length").value;
+const pool=formality==="normal"?intro[tone]:formalIntro[formality][tone];
+const openings=pool.filter(x=>x!==lastOpening);
+const opening=pick(openings.length?openings:pool);lastOpening=opening;
+const topicCount=length==="kort"?1:length==="lang"?Math.min(topics.length,4):Math.min(topics.length,2);
+const shuffled=[...topics].sort(()=>Math.random()-.5);
+const paragraphs=[];
+const topicParagraphs=shuffled.slice(0,topicCount).map(t=>{
+const options=formality==="normal"?points[t]:styledPoints[formality][t];
+const statements=options.filter(x=>!x.trim().endsWith("?"));
+return pick(statements.length?statements:options);
+});
+const structures=[0,1,2,3].filter(x=>x!==lastStructure);
+const structure=pick(structures);lastStructure=structure;
+const prompt=topics.includes("utbildningar")?pick(cancelledCourseQuestions):pick(questions);
+paragraphs.push(opening);
+if(structure===0){
+  // En konkret fråga tidigt i brevet, utan frågelista.
+  paragraphs.push(prompt);
+  paragraphs.push(...topicParagraphs);
+  if(length==="lang")paragraphs.push(pick(responseRequests[formality]));
+}else if(structure===1){
+  // Argumentation och ett tydligt krav, helt utan obligatoriska frågor.
+  paragraphs.push(...topicParagraphs);
+  paragraphs.push(pick(responseRequests[formality]));
+}else if(structure===2){
+  // Personligt resonerande uppbyggnad utan fast avslutande frågelista.
+  if(topicParagraphs.length)paragraphs.push(topicParagraphs[0]);
+  paragraphs.push(pick(reflectivePassages[formality]));
+  paragraphs.push(...topicParagraphs.slice(1));
+}else{
+  // Kritisk men saklig framställning med fokus på ansvar och återkoppling.
+  paragraphs.push(pick(concernPassages[formality]));
+  paragraphs.push(...topicParagraphs);
+  if(length!=="kort")paragraphs.push(pick(responseRequests[formality]));
+}
+if(tone==="skarpare"&&structure===2)paragraphs.push(pick(responseRequests[formality]));
+if(structure!==1&&structure!==3)paragraphs.push(pick(shortClosings[formality]));
+paragraphs.push(pick(signatures[formality]));
+$("message").value=paragraphs.join("\n\n");
+const subjectOptions=shuffled.flatMap(t=>subjects[t]||[]);
+const otherSubjects=subjectOptions.filter(x=>x!==$("subject").value);
+if(otherSubjects.length)$("subject").value=pick(otherSubjects);
+$("approved").checked=false;
+$("status").textContent="Textförslaget är klart. Granska och anpassa det innan du skickar.";
+}
 const subjects={bildning:["Facklig bildning måste prioriteras","Medlemmarnas rätt till facklig utbildning","Hur värnar Byggnads den fackliga bildningen?"],demokrati:["Medlemsinflytande och facklig demokrati","Stärk medlemsdemokratin inom Byggnads","Medlemmarnas inflytande måste tas på allvar"],insyn:["Frågor om insyn och beslutsfattande","Öppenhet kring beslut inom Byggnads","Begäran om tydligare beslutsunderlag"],utbildningar:["Begäran om besked om inställda utbildningstillfällen","Tillgången till Vägen framåt och Makthantverket","Beslut och ansvar för inställda kurstillfällen"],ansvar:["Ansvar för den fackliga utbildningen","Hur följs studieverksamheten upp?","Frågor om ansvar och uppföljning"]};
 function body(){return $("message").value.trim()+"\n"+($("name").value.trim()||"")+( $("email").value.trim()?"\nKontaktadress: "+$("email").value.trim():"")}
 $("generate").onclick=generate;$("copy").onclick=async()=>{try{await navigator.clipboard.writeText("Ämne: "+$("subject").value+"\n\n"+body());$("status").textContent="Brevet kopierat."}catch{$("status").textContent="Kopiering misslyckades. Markera texten manuellt."}};
