@@ -1,17 +1,74 @@
-// Offentligt publicerade arbetsadresser. Regionernas gemensamma inkorgar är inte direkta styrelseadresser.
-// Annika Piston, förbundssekreterare och förbundsstyrelsens direktadresser inväntar verifiering.
+// Offentligt publicerade arbetsadresser. Roller baseras på Byggnads publicerade kontaktuppgifter.
+// Listan är grupperad med särskild visningsordning för vissa mottagare, inte en officiell rangordning.
 window.BILDNINGSROST_CONFIG = {recipients: [
   {
     "name": "Centralt – Görgen Zilén",
-    "email": "gorgen.zilen@byggnads.se"
+    "email": "gorgen.zilen@byggnads.se",
+    "role": "Enhetschef · organisationsenheten"
+  },
+  {
+    "name": "Förbundsledning – Thomas Schultz",
+    "email": "thomas.schultz@byggnads.se",
+    "role": "Förbundssekreterare"
+  },
+  {
+    "name": "Förbundsledning – Kim Söderström",
+    "email": "kim.soderstrom@byggnads.se",
+    "role": "Förbundsordförande"
+  },
+  {
+    "name": "Förbundsledning – Linda-Li Käld",
+    "email": "linda-li.kald@byggnads.se",
+    "role": "Vice förbundsordförande"
+  },
+  {
+    "name": "Förbundsstyrelse – Jim Sundelin",
+    "email": "jim.sundelin@byggnads.se",
+    "role": "Ledamot · MellanNorrland"
+  },
+  {
+    "name": "Förbundsstyrelse – Jonas Sjöberg",
+    "email": "jonas.sjoberg@byggnads.se",
+    "role": "Ledamot · Skåne"
+  },
+  {
+    "name": "Förbundsstyrelse – Richard Mellberg",
+    "email": "richard.mellberg@byggnads.se",
+    "role": "Ledamot · Öst"
+  },
+  {
+    "name": "Region GävleDala – ordförande Lotta Jepsen Sjölander",
+    "email": "lotta.jepsensjolander@byggnads.se"
+  },
+  {
+    "name": "Region Norr – ordförande Claes Danell",
+    "email": "claes.danell@byggnads.se"
+  },
+  {
+    "name": "Region Småland-Blekinge – Morgan Nyberg",
+    "email": "morgan.nyberg@byggnads.se"
+  },
+  {
+    "name": "Region Stockholm-Gotland – ordförande Johnny Rindebrant",
+    "email": "johnny.rindebrant@byggnads.se"
+  },
+  {
+    "name": "Region Väst – ordförande Patrik Jerksten",
+    "email": "patrik.jerksten@byggnads.se"
+  },
+  {
+    "name": "Region Örebro-Värmland – ordförande Ann-Katrin Hedgren",
+    "email": "ann-katrin.hedgren@byggnads.se"
   },
   {
     "name": "Centralt – Roger Johansson",
-    "email": "roger.johansson@byggnads.se"
+    "email": "roger.johansson@byggnads.se",
+    "role": "Tillförordnad chef · ledningsstaben"
   },
   {
     "name": "Centralt – Malin Hanson",
-    "email": "malin.hanson@byggnads.se"
+    "email": "malin.hanson@byggnads.se",
+    "role": "Enhetschef · kommunikationsenheten"
   },
   {
     "name": "Region GävleDala – gemensam inkorg",
@@ -52,32 +109,6 @@ window.BILDNINGSROST_CONFIG = {recipients: [
   {
     "name": "Region Öst – gemensam inkorg",
     "email": "ost@byggnads.se"
-  },
-  {
-    "name": "Region GävleDala – ordförande Lotta Jepsen Sjölander",
-    "email": "lotta.jepsensjolander@byggnads.se"
-  },
-  {
-    "name": "Region Stockholm-Gotland – ordförande Johnny Rindebrant",
-    "email": "johnny.rindebrant@byggnads.se"
-  },
-  {
-    "name": "Region Väst – ordförande Patrik Jerksten",
-    "email": "patrik.jerksten@byggnads.se"
-  },
-  {
-    "name": "Region Örebro-Värmland – ordförande Ann-Katrin Hedgren",
-    "email": "ann-katrin.hedgren@byggnads.se"
-  },
-  {
-    "name": "Region Norr – ordförande Claes Danell",
-    "email": "claes.danell@byggnads.se"
-  },
-  {
-  },
-  {
-    "name": "Region Småland-Blekinge – Morgan Nyberg",
-    "email": "morgan.nyberg@byggnads.se"
   },
   {
     "name": "Studier Mälardalen – Tobias Lundblad",
